@@ -1,0 +1,19 @@
+Java Programming has a new assignment.
+
+ "Assignment 8 and Assignment 9:"
+ Due: Oct 14
+
+ Instructions:
+ Custom Exception:
+ What do you mean by throw and throws ? Also Write Syntax of it.
+ Write a Program to throw inbuilt Exception using Keyword throw.
+ Write a Program to create your own Exception. By Making Proper Use of Keyword Throw and Throws.
+ Difference Between throw and Throws.
+ What is the use of Keyword "finally" ?  Write Down the Syntax of finally keyword.
+
+ Assignment   9:
+ What do  you mean by Abstract Class and Abstract Methods.
+ Write Short note of Abstract Class.
+ Write a Program to calculate the    "Salary of Google Employee"  Using the Concept of Abstract Class.
+
+

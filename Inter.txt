@@ -1,0 +1,87 @@
+class Father
+{
+  int ht=6;
+  void display()
+  {
+      System.out.println("height of Father :"+ht);
+  }
+}
+
+interface Mother
+{
+    static double ht=6.2;
+    void display();
+}
+
+class Child extends Father implements Mother
+{
+    public void display()
+    {
+        //System.out.println(Mother.ht+" "+super.ht);
+        System.out.println("height of child :"+(Mother.ht+super.ht)/2); 
+    }
+}
+
+
+public class MulInh 
+{
+    public static void main(String args[])
+    {
+   Child c=new Child();
+    c.display();
+    }
+}
+
+
+
+
+
+
+
+
+interface A{
+    double pi=3.14;
+    void Volume(double r,double h);
+}
+
+class B implements A
+{
+    
+   public void Volume(double r,double h)
+   {
+       System.out.println(pi*r*r*h);
+   }
+}
+
+
+
+public class InheritenceDemo 
+{
+        public static void main(String args[])
+        {
+            B b=new B();
+            b.Volume(3,5);
+        }
+}
+
+
+
+
+import java.util.*;
+public class PalindromeString 
+{
+    public  static void main(String args[])
+    {
+       String s1=new String("KIRANu");
+      // Scanner s=new Scanner(System.in);
+    //  boolean a= s1.equals("KIRAN");
+      // boolean a=s1.equalsIgnoreCase("kiran");
+      // int a=s1.compareTo("ravi");
+     // String a= s1.trim();
+     //boolean a= s1.startsWith("K");
+       //int a=s1.compareToIgnoreCase("kiranR");
+      boolean a= s1.regionMatches(2, "sa",3,6);
+       System.out.print(a);
+    }
+}
+

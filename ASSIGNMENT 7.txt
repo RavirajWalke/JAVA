@@ -1,0 +1,12 @@
+1. What do You mean by Exception Handling.
+ 2. Hierarchy  of Exceptions
+ 3. Syntax of Try-catch block
+ 4. Explain what do you mean by try and catch block and explain the working of it.
+ 5. Use try-catch Keyword to handle Arithmetic Exception "Divide by Zero".
+ 6. Use try-catch Keyword to handle  "InputMissMatchError".
+ 7. Use try-catch Keyword to handle  "INullPointerExceptionError".
+ 8. WAP to demonstrate the use of multiple use of catch blocks in a program.
+ 9. Use try-catch Keyword to handle  "ArrayOutofBoundIndexException".
+ 10. WAP to demonstrate the use of nested try-block.
+
+ ***Don't submit online.

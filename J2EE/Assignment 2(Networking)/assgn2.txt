@@ -1,0 +1,3 @@
+write program for cp server as per givn below
+1.program to create tcp server to send message to client
+2.program to create tcp client to recieve message

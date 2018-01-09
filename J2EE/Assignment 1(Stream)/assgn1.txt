@@ -1,0 +1,2 @@
+1.Write A program to read 10 integers from keyboard and write them into "Numbers.txt" File.
+2.Write A program to read from File and sort them in increasing order and print them on monitor screen.

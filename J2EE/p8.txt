@@ -1,0 +1,354 @@
+package p8;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class SwingDemo extends JFrame implements ActionListener {
+
+	JMenu student,help;
+	JMenuBar mb;
+	JMenuItem ns,s,info,about;
+	
+	SwingDemo() 
+	{
+		setSize(600,700);
+		setTitle("Student Registration");
+		setVisible(true);
+		
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new FlowLayout());
+	 Container c=this.getContentPane();
+	
+	 mb=new JMenuBar();
+	 c.setBackground(Color.gray);
+	 c.add("North",mb);
+	 
+	 student=new JMenu("Student");
+	 help=new JMenu("Help");
+	 mb.add(student);
+	 mb.add(help);
+	 ns=new JMenuItem("New Student");
+	 s=new JMenuItem("Search");
+	 student.add(ns);
+	 student.add(s);
+	 
+	 info=new JMenuItem("Info");
+	 about=new JMenuItem("About");
+	 help.add(info);
+	 help.add(about);
+	 
+	 ns.addActionListener(this);
+	 s.addActionListener(this);
+	}
+	public class NStudent extends JFrame implements ActionListener
+	{
+		 JLabel l1,l2,l3,err,err1;
+		 JTextArea ta1,ta2;
+		 JRadioButton cb1,cb2;
+		 ButtonGroup bg;
+		 JButton b1,b2,b3;
+		NStudent() 
+		{
+			setTitle("New Ragistration");
+			setVisible(true);
+			setSize(400,500);
+			
+			setLayout(null);
+			setBackground(Color.BLUE);
+		     Container c1=this.getContentPane();
+		     c1.setBackground(Color.green);
+			 l1=new JLabel("Name");
+			 l1.setBounds(40,20,50,20);
+			 c1.add(l1);
+			 ta1=new JTextArea("Enter fullname");
+			 ta1.setBounds(100,20,100,20);
+			 c1.add(ta1);
+			 
+			 l2=new JLabel("Roll No");
+			 l2.setBounds(40,50,50,20);
+			 c1.add(l2);
+			 ta2=new JTextArea("enter rollno");
+			 ta2.setBounds(100,50,100,20);
+			 c1.add(ta2);
+			 
+			 ta1.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+			 ta2.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+			 l3=new JLabel("Gender");
+			 l3.setBounds(40,90,50,20);
+			 c1.add(l3);
+			 
+			 
+			 cb1=new JRadioButton("Male");
+			 cb1.setBackground(Color.green);
+			 cb1.setBounds(100,80, 80, 25);
+			 cb2=new JRadioButton("Female");
+			 cb2.setBackground(Color.green);
+			 cb2.setBounds(100,101, 80, 25);
+			 bg=new ButtonGroup();
+			 bg.add(cb1);
+			 bg.add(cb2);	
+			 c1.add(cb1);
+			 c1.add(cb2);
+			 
+			 b1=new JButton("Insert");
+			 b1.setBounds(20,130, 70, 20);
+			 b1.setBorder(BorderFactory.createBevelBorder(WIDTH));
+			 c1.add(b1);
+			 b2=new JButton("clear");
+			 b2.setBorder(BorderFactory.createBevelBorder(WIDTH));
+			 b2.setBounds(130,130, 80, 20);
+			 c1.add(b2);
+			 b3=new JButton("close");
+			 b3.setBounds(250,130, 70, 20);
+			 b3.setBorder(BorderFactory.createBevelBorder(WIDTH));
+			 c1.add(b3);
+			 b1.addActionListener(this);
+			 b2.addActionListener(this);
+			 b3.addActionListener(this);
+			 
+		}
+		 public void actionPerformed(ActionEvent aae) 
+		{
+			 if(aae.getActionCommand().equals("Insert"))
+			 {
+				 String name=ta1.getText();
+				 int rollno=Integer.parseInt(ta2.getText());
+				 String gender=null;
+				 if(cb1.isSelected())
+				   gender="male";
+				 else
+					gender="female";
+				 
+				 Connection con=null;
+				 Statement st=null;
+				 try{
+				 Class.forName("com.mysql.jdbc.Driver");
+				 con=DriverManager.getConnection("jdbc:mysql:///mydb1","root","root");
+				 st=con.createStatement();
+				 int r=st.executeUpdate("insert into nstudent values('"+name+"',"+rollno+",'"+gender+"')");
+				 if(r==1)
+				 {
+					 JFrame nf=new JFrame();
+					 nf.setTitle("New Ragistration");
+					 nf.setSize(300,200);
+					 nf.setVisible(true);
+					 Container c2=nf.getContentPane();
+					 nf.setLayout(null);
+					 err1=new JLabel("Registration successfull !!!!!!");
+					 err1.setBounds(40,30,200,50);
+					 c2.add(err1);
+					 ta1.setText("");
+					  ta2.setText("");
+				 }
+				  
+         }//try
+				 catch(SQLException se){
+					 JFrame nf=new JFrame();
+					 nf.setTitle("New Ragistration");
+					 nf.setSize(300,250);
+					 nf.setVisible(true);
+					 Container c2=nf.getContentPane();
+					 nf.setLayout(null);
+					 err=new JLabel("Invalid Input");
+					 err.setBounds(40,30,200,50);
+					 c2.add(err);
+				 }
+				 catch(NumberFormatException ie){
+					 JFrame nf=new JFrame();
+					 nf.setTitle("New Ragistration");
+					 nf.setSize(300,250);
+					 nf.setVisible(true);
+					 Container c2=nf.getContentPane();
+					 nf.setLayout(null);
+					 err=new JLabel("Invalid Input");
+					 err.setBounds(40,30,200,50);
+					 c2.add(err);
+				 }
+				 catch(Exception e)
+				 {
+					 e.printStackTrace();
+				 }
+			 }
+			 if(aae.getActionCommand().equals("clear")){
+				  
+					  ta1.setText("");
+					  ta2.setText("");
+					  
+				  }
+			 if(aae.getActionCommand().equals("close"))
+			 {
+				 this.dispose();
+			 }
+			 
+		}
+	}
+	
+	public class SStudent extends JFrame implements ActionListener
+	{
+		JLabel bn,brn,or,err;
+		JTextArea t1,t2;
+		JButton se;
+		Container c2;
+		SStudent()
+		{
+			setTitle("Search Student");
+			setVisible(true);
+			setSize(400,500);
+			setLayout(null);
+			setBackground(Color.BLUE);
+		     c2=this.getContentPane();
+		     c2.setBackground(Color.green);
+		     bn=new JLabel("By Name");
+		     bn.setBounds(30,20,90,50);
+		     or=new JLabel("OR");
+		     or.setBounds(100,55,50,30);
+		     c2.add(or);
+		     brn=new JLabel("By Roll No");
+		     brn.setBounds(30,70,90,50);
+		     c2.add(bn);
+		     c2.add(brn);
+		     
+		     t1=new JTextArea();
+		     t2=new JTextArea();
+		     t1.setBounds(100,35,100,20);
+		     t2.setBounds(100,85,100,20);
+		     c2.add(t1);
+		     c2.add(t2);
+		     se=new JButton("Search");
+		     se.setBounds(100,120,80,20);
+		     c2.add(se);
+		     se.addActionListener(this);
+		}
+		public void actionPerformed(ActionEvent aa)
+		{
+			int rno=0;
+			String name1=null;
+			if(aa.getActionCommand().equals("Search"))
+			{
+				name1=t1.getText().trim();
+				String txt2=t2.getText();
+				if(txt2.length()!=0)
+				{
+					rno=Integer.parseInt(txt2);	
+				}
+				 
+				Statement st=null;
+				Connection con=null;
+				ResultSet rs=null;
+				try{
+					Class.forName("com.mysql.jdbc.Driver");
+					 con=DriverManager.getConnection("jdbc:mysql:///mydb1","root","root");
+					 st=con.createStatement();
+					 if(name1 !=null)
+					   rs=st.executeQuery("select * from nstudent where name='"+name1+"'");
+					 if(rno !=0)
+						 rs=st.executeQuery("select * from nstudent where rollno="+rno);
+					
+						 
+					 JTextField tf=new JTextField(3);
+					 tf.setBounds(50,170,200,100);
+					 c2.add(tf);
+					 tf.setText("sanket");
+					 tf.setText("\t21");
+					 JLabel d4,d5,d6;
+			         d6=new JLabel("name");
+			         d4=new JLabel("Roll no");
+			         d5=new JLabel("Gender");
+			         d6.setBounds(50,150,80,20);
+			         d4.setBounds(100,150,80,20);
+			         d5.setBounds(150,150,80,20);
+			         c2.add(d6);
+			         c2.add(d4);
+			         c2.add(d5);
+			         setSize(400, 500);
+			         c2.setVisible(true);
+			         int y1=170;
+					 while(rs.next())
+					 {
+						 tf.setText(rs.getString(1));
+						 tf.setText(rs.getInt(2)+"");
+	                   d6=new JLabel(rs.getString(1));
+	                   d4=new JLabel(rs.getInt(2)+"");
+	                   d5=new JLabel(rs.getString(3));
+	                   
+					
+	                   d6.setBounds(50,y1,80,20);
+	                   d4.setBounds(100,y1,80,20);
+	                   d5.setBounds(150,y1,80,20);
+	                   y1+=30;
+	                   
+	                   c2.add(d6);
+	                   c2.add(d5);
+	                   c2.add(d4);
+					 }
+					 
+				}//try
+				 catch(SQLException se){
+					 JFrame nf=new JFrame();
+					 nf.setTitle("Searching stop");
+					 nf.setSize(300,250);
+					 nf.setVisible(true);
+					 Container c3=nf.getContentPane();
+					 nf.setLayout(null);
+					 err=new JLabel("Invalid Input");
+					 err.setBounds(40,30,200,50);
+					 c3.add(err);
+				 }
+				 catch(NumberFormatException ie){
+					 JFrame nf=new JFrame();
+					 nf.setTitle("Searching stop");
+					 nf.setSize(300,250);
+					 nf.setVisible(true);
+					 Container c3=nf.getContentPane();
+					 nf.setLayout(null);
+					 err=new JLabel("Invalid Input");
+					 err.setBounds(40,30,200,50);
+					 c3.add(err);
+				 }
+				 catch(Exception e)
+				 {
+					 e.printStackTrace();
+				 }
+			}
+		}
+	}
+public void actionPerformed(ActionEvent ae){ 
+		 if(ae.getActionCommand().equals("New Student"))
+		 {
+			 new NStudent();	
+		 }
+		 if(ae.getActionCommand().equalsIgnoreCase("Search"))
+		 {
+			 new SStudent();
+		 }
+	 }
+	public static void main(String args[])
+	{
+		new SwingDemo();
+		
+	}
+}
